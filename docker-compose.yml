@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hospital-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Ririri1231
+      MYSQL_DATABASE: hospital_db
+    ports:
+      # Expose container MySQL on host port 3307 to avoid conflicts with any existing local MySQL
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:

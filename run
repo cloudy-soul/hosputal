@@ -1,0 +1,9 @@
+ # Start database (force recreate to avoid naming conflicts)
+ docker-compose down
+ docker-compose up -d
+
+ # Option 1: override via property
+ mvn -Dspring.datasource.url=jdbc:mysql://localhost:3307/hospital_db -Dspring-boot.run.profiles=default spring-boot:run
+
+ #show tables
+ docker exec -i hospital-mysql mysql -uroot -pRiriri1231 -e "SHOW DATABASES;"
